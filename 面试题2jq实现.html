@@ -1,0 +1,74 @@
+	<!--
+		有3个select 可选的值满足的范围均包含端点,
+		1-10 未选择
+		任意一个select的选项范围需要排除所有其他选择器已选择的值例如
+		s1 选择1 s2 s3 只能从2-10 进行选择
+		s1 选择1 s2选择10 s3只能从2-9进行选择
+		使用jq实现
+		使用vue实现
+
+	-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+  	<select id="s1">
+    	<option value='' selected="selected">请选择</option>
+    	<option value='1'>1</option>
+    	<option value='2'>2</option>
+    	<option value='3'>3</option>
+    	<option value='4'>4</option>
+    	<option value='5'>5</option>
+    	<option value='6'>6</option>
+    	<option value='7'>7</option>
+    	<option value='8'>8</option>
+    	<option value='9'>9</option>
+    	<option value='10'>10</option>
+  	</select>
+    <select id="s2">
+    	<option value='' selected="selected">请选择</option>
+    	<option value='1'>1</option>
+    	<option value='2'>2</option>
+    	<option value='3'>3</option>
+    	<option value='4'>4</option>
+    	<option value='5'>5</option>
+    	<option value='6'>6</option>
+    	<option value='7'>7</option>
+    	<option value='8'>8</option>
+    	<option value='9'>9</option>
+    	<option value='10'>10</option>>
+  	</select>
+  	<select id="s3">
+    	<option value='' selected="selected">请选择</option>
+    	<option value='1'>1</option>
+    	<option value='2'>2</option>
+    	<option value='3'>3</option>
+    	<option value='4'>4</option>
+    	<option value='5'>5</option>
+    	<option value='6'>6</option>
+    	<option value='7'>7</option>
+    	<option value='8'>8</option>
+    	<option value='9'>9</option>
+    	<option value='10'>10</option>
+  	</select>
+<script type="text/javascript"> 
+	$("#s1").change(function () {
+		var val=$(this).val();
+		$( "#s2 option[value='" + val + "']"+","+"#s3 option[value='" + val + "']").remove();
+    });
+    $("#s2").change(function () {
+		var val=$(this).val();
+		$( "#s1 option[value='" + val + "']"+","+"#s3 option[value='" + val + "']").remove();
+    });
+    $("#s3").change(function () {
+		var val=$(this).val();
+		$( "#s1 option[value='" + val + "']"+","+"#s2 option[value='" + val + "']").remove();
+    });
+</script>
+
+</body>
+</html>

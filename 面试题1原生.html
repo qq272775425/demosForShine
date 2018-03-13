@@ -1,0 +1,83 @@
+<!--
+有一个按行存贮的二层数组
+[
+	[1,2,*33,5],
+	[2,*10,15,16],
+	[*3,1,21,*20]
+]
+设计一个函数
+返回html用表格渲染整个数组
+同时给每一列最大值突出显示
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+
+<script>
+// 数组遍历
+	var arr=[
+				[1,2,33,5],
+				[2,10,15,16],
+				[3,1,21,20],
+				[99,99,99,99],
+				[100,5675,9,0]
+				// [1,2,33,5],
+				// [2,10,15,16],
+				// [3,1,21,20]
+			];
+				
+
+	function creatAndStrong(arr){			
+		var htmlstr="<table id='table' border='1px'>";
+		for(i=0;i<arr.length;i++){
+	 		htmlstr+="<tr>";
+	 		for(j=0;j<arr[i].length;j++){
+	  			htmlstr+="<td >" + arr[i][j] +"</td>"; 
+	 		}
+	 		htmlstr+="</tr>";
+		}
+		htmlstr+="</table>";
+		document.write(htmlstr);
+		
+		// 突出显示
+		//入栈
+		var table = document.getElementById('table');
+        var trs = table.getElementsByTagName('tr');
+        var tdArr = [];
+        for(var i=0;i<trs.length;i++){
+            var tds = trs[i].getElementsByTagName('td');
+            for(var j=0;j<tds.length;j++){
+                if(!tdArr[j]){
+                    tdArr[j] = [];
+                }
+                tdArr[j].push(tds[j]);
+            }
+        }
+        //排序
+        for(var i=0;i<tdArr.length;i++){
+            tdArr[i].sort(function(td1,td2){
+                var v1 = parseInt(td1.innerHTML);
+                var v2 = parseInt(td2.innerHTML);
+                return v1 > v2 ? -1 : 1;
+            })
+            tdArr[i][0].style.background = 'red';
+        }
+
+		
+	};
+	creatAndStrong(arr);
+
+
+
+
+
+</script>
+</body>
+</html>

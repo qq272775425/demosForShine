@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
+</head>
+<body>
+    <div id="div1">
+        <select id="s1" v-model="value1">
+            <option value='' selected="selected">请选择</option>
+            <template v-for="value in valueArr1">
+            <option :value='value'>{{ value }}</option>
+            </template>
+        </select>
+        <select id="s2" v-model="value2">
+            <option value='' selected="selected">请选择</option>
+            <template v-for="value in valueArr2">
+            <option :value='value'>{{ value }}</option>
+            </template>
+        </select>
+        <select id="s3" v-model="value3">
+            <option value='' selected="selected">请选择</option>
+            <template v-for="value in valueArr3">
+            <option :value='value'>{{ value }}</option>
+            </template>
+        </select>
+    </div>
+<script type="text/javascript">
+var arr = [1,2,3,4,5,6,7,8,9,10];
+ 
+var vm = new Vue({
+    el: '#div1',
+    data: {
+        valueArr1: arr,
+        valueArr2: arr,
+        valueArr3: arr,
+        value1: '',
+        value2: '',
+        value3: '',
+    },
+    // 监听value1 value2 value3三个值得变化 当这三个值中的一个发生变化就会触发事件
+    watch: {
+        value1: function(val, oldVal){
+            var val2 = this.value2,
+                val3 = this.value3,
+                newArr2 = [],
+                newArr3 = [];
+             // 重组数组newArr2 newArr3再赋给valueArr2 valueArr3 下同
+            for(var i in arr){
+                var v = arr[i];
+                if(val==v) continue;
+                if(val3==v) continue;
+                newArr2.push(v);
+            }
+            for(var i in arr){
+                var v = arr[i];
+                if(val==v) continue;
+                if(val2==v) continue;
+                newArr3.push(v);
+            }
+            this.valueArr2 = newArr2;
+            this.valueArr3 = newArr3;
+        },
+        value2: function(val, oldVal){
+            var val1 = this.value1,
+                val3 = this.value3,
+                newArr1 = [],
+                newArr3 = [];
+            for(var i in arr){
+                var v = arr[i];
+                if(val==v) continue;
+                if(val3==v) continue;
+                newArr1.push(v);
+            } 
+            for(var i in arr){
+                var v = arr[i];
+                if(val==v) continue;
+                if(val1==v) continue;
+                newArr3.push(v);
+            } 
+            this.valueArr1 = newArr1;
+            this.valueArr3 = newArr3;
+        },
+        value3: function(val, oldVal){
+            var val1 = this.value1,
+                val2 = this.value2,
+                newArr1 = [],
+                newArr2 = [];
+            for(var i in arr){
+                var v = arr[i];
+                if(val==v) continue;
+                if(val2==v) continue;
+                newArr1.push(v);
+            }
+            for(var i in arr){
+                var v = arr[i];
+                if(val==v) continue;
+                if(val1==v) continue;
+                newArr2.push(v);
+            }
+            this.valueArr1 = newArr1;
+            this.valueArr2 = newArr2;
+        }
+    }
+});
+</script>
