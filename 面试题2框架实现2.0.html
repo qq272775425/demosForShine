@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>tab</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <select v-model="s1" id="s1">
+            <option value="" selected>请选择</option>
+            <option v-for="item in options" :value="item" :disabled="item == s2 || item == s3">{{item}}</option>
+        </select>
+        <select v-model="s2" id="s2">
+            <option value="" selected>请选择</option>
+            <option v-for="item in options" :value="item" :disabled="item == s1 || item == s3">{{item}}</option>
+        </select>
+        <select v-model="s3" id="s3">
+            <option value="" selected>请选择</option>
+            <option v-for="item in options" :value="item" :disabled="item == s2 || item == s1">{{item}}</option>
+        </select>
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                options: [1,2,3,4,5,6,7,8,9,10],
+                s1: "",
+                s2: "",
+                s3: ""
+            }
+        })
+    </script>
+</body>
+</html>
